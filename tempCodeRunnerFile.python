@@ -1,0 +1,14 @@
+name = "Alex"
+lastName = "Mindota"
+address = "afghanisan" 
+contact_no = "Pres of the United States"
+
+addressBook = [
+    {
+        "first name": name,, 
+        "last_name": last_name,
+        "address": address,
+        "contact_no": contact_no
+    }
+]
+
