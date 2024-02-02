@@ -17,7 +17,6 @@
 NOTE TO PROGRAMMERS:
 1. Consider using a class to encapsulate the address book functionality. ✔
     This can help with organization and make it easier to manage the state of the address book.
-
 2.  Add comments to your code to explain the purpose of functions and any complex logic.
 3.  Validate user inputs to handle potential errors (e.g., non-integer inputs, invalid options).
 4. Use meaningful variable and function names to improve code readability.
@@ -34,13 +33,14 @@ FEATURES = [
     "Exit"
 ]
 
+
 def display_menu():
     '''Displays the header border and menu for the address book features'''
     # Set the width for the header
     width = 10
 
     # Print the header with the specified width
-    print("-"*width, "Address Book", "-"*width)
+    print("-" * width, "Address Book", "-" * width)
 
     # Display all the available options
     for i, option in enumerate(FEATURES, start=1):
@@ -48,6 +48,7 @@ def display_menu():
 
     # Print an empty line space for better readability
     print("")
+
 
 def choose() -> int:
     '''Allows the user to choose from 1 to 6 (the number to interact with the address book).'''
@@ -60,6 +61,7 @@ def choose() -> int:
             print("Invalid Option..")
 
     return option
+
 
 class AddressBook:
     """
@@ -79,7 +81,7 @@ class AddressBook:
         '''Prompt the user for the first name, last name, address, and contact number.'''
         first_name = input("Enter your first name: ")
         last_name = input("Enter your last name: ")
-        address = input("Enter your addres: ")
+        address = input("Enter your address: ")
         contact_no = int(input("Enter your contact number: "))
 
         # Assign these entries to a dict of entries
@@ -93,14 +95,48 @@ class AddressBook:
         # Add the user entry into the contacts collection
         self.contacts.append(entries)
 
-        # Return the contacts with the newly added newly added person
+        # Return the contacts with the newly added person
         return self.contacts
-
 
     def edit_contact(self):
         """Prompt the user for the entry number he wants to edit."""
-        pass
+        entry_edit = int(input("Enter the entry number to be edited: "))
+        try:
+            entry_n = self.contacts[entry_edit - 1]
+            print("Current details:", entry_n)
 
+            print("\n--- Select what to edit to the entry ---\n",
+                  "1. Edit first name.\n",
+                  "2. Edit last name.\n",
+                  "3. Edit address.\n",
+                  "4. Edit contact number.\n",
+                  "5. Exit edit.\n")
+
+            edit_option = int(input("Enter option number: "))
+
+            if edit_option == 1:
+                updated_entry = {"first_name": input("Enter new first name: ")}
+                entry_n.update(updated_entry)
+                print("Updated entry details:", entry_n)
+            elif edit_option == 2:
+                updated_entry = {"last_name": input("Enter new last name: ")}
+                entry_n.update(updated_entry)
+                print("Updated entry details:", entry_n)
+            elif edit_option == 3:
+                updated_entry = {"address": input("Enter new address: ")}
+                entry_n.update(updated_entry)
+                print("Updated entry details:", entry_n)
+            elif edit_option == 4:
+                updated_entry = {"contact_no": input("Enter new contact number: ")}
+                entry_n.update(updated_entry)
+                print("Updated entry details:", entry_n)
+            elif edit_option == 5:
+                print("Exiting edit.")
+            else:
+                print("Invalid option!")
+
+        except:
+            print("No entry found!")
 
     def delete_contact(self):
         """Prompt the user to enter the entry number to be deleted.b.
@@ -128,7 +164,7 @@ def main():
     # Initialize the address book object
     address_book = AddressBook()
 
-    while True::
+    while True:
         # Display the Menu
         display_menu()
 
@@ -151,7 +187,6 @@ def main():
                 # Exit the program
                 break
 
+
 if __name__ == "__main__":
     main()
-
-
