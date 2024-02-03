@@ -1,34 +1,38 @@
+from time import sleep
 name = "Alex"
 last_name = "Mindota"
 address = "afghanisan"
-contact_no = "Pres of the United States"
+contact_no = "093939393"
+addressBook = [  ]
 
-addressBook = [
-    {
-        "first_name": name,
-        "last_name": last_name,
-        "address": address,
-        "contact_no": contact_no
-    },
-    {
-        "first_name" : "Jomari",
-        "last_name": "Mangahas",
-        "address": address,
-        "contact_no": contact_no
-    }
-]
+person1 = {
+    "first_name": name,
+    "last_name": last_name,
+    "address": address,
+    "contact_no": contact_no
+}
+person2 = {
+    "first_name": "jomari",
+    "lastn_name":"snake",
+    "address": address,
+    "contact_no": contact_no
+}
 
-# Delete concept
-# del addressBook[0]["first name"]
-# addressBook[0]["first name"] = "New Name Alex"
-# print(addressBook)
+# Add person1 and person2 to address book
+addressBook.append(person1)
+addressBook.append(person2)
 
-# Search Concept 
-prompt = "Jomari"
-found = ""
+# # View Contacts
+# print("veiwing contacts", end = "")
+# for i in range(5):
+#     sleep(1)
+#     print(".", end= "")
+# print("O")
+# print("")
 
-for person in addressBook:
-    if person["first_name"] == prompt:
-        found = person
+# for i, person in enumerate(addressBook):
+#     print(f"{i+1}. {person["first_name"]} #{person["contact_no"]}")
 
-print(found)
+# print("")
+
+print(addressBook)

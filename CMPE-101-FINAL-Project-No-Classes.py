@@ -122,7 +122,7 @@ def add_contact(contacts):
     # Return the contacts with the newly added person
     return contacts
 
-def edit_contact():
+def edit_contact(contacts):
     """Prompt the user for the entry number he wants to edit."""
 
     # Display the contacts
@@ -173,7 +173,7 @@ def edit_contact():
         except IndexError: # no key excists
             print("No entry found!")
 
-def delete_contact():
+def delete_contact(contacts):
     """Prompt the user to enter the entry number to be deleted.b.
     After deleting a record, all succeeding entries will move forward."""
 
@@ -200,8 +200,8 @@ def delete_contact():
             break
 
         # Delete the contacts from the list
-        deleted = contacts.pop((erase_index)-1)[["first_name"]]
-        print(f"Successfully Deleted {deleted}...\n")
+        deleted = contacts.pop((erase_index)-1)
+        print(f"Successfully Deleted {deleted['first_name']} {deleted['last_name']}...\n")
 
         # Ask the user for another deletion
         repeat = input("you want to delete another entry?(y/n): ").strip().lower()
@@ -209,7 +209,7 @@ def delete_contact():
             print("Exiting...\n")
             break
 
-def view_contacts():
+def view_contacts(contacts):
     '''Display all the entries.'''
     page_number = 1
 
@@ -242,7 +242,7 @@ def view_contacts():
         else:
             print("Invalid input. Please enter (P)revious, (N)ext, or press ENTER to return to main.")
 
-def search_contacts():
+def search_contacts(contacts):
     '''Prompt  the  user  to  search  the  address  book
     (a)  by  first  name,
     (b)  by  last  name,
