@@ -171,17 +171,18 @@ def delete_contact(contacts):
         print("No existing entries")
         return
 
-    # Display the contacts
-    display_contacts(contacts)
-
-    print(contacts)
-
     while True:
+        # Display the contacts
+        display_contacts(contacts)
+        print("[ Enter ZERO (0) to return to exit ]")
+
         # Prompt the user to input an contact entry to choose
-        erase_index = input_int("Enter entry number you want to delete: ")
+        erase_index = input_int("Enter entry number you want to delete:  ")
 
         # Check if index to erase is within contacts range
-        if not (0 < erase_index <= len(contacts)):
+        if erase_index == 0:
+            return
+        if not 0 < erase_index <= len(contacts):
             print("Input number out of range")
             continue
 

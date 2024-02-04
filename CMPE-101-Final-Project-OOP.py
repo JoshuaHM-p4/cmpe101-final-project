@@ -174,16 +174,20 @@ class AddressBook:
             print("No existing entries")
             return
 
-        # Display the contacts
-        display_contacts(self.contacts)
-
         while True:
-            # Prompt the user to input an contact entry to choose
-            erase_index = input_int("Enter entry number you want to delete: ")
+            # Display the contacts
+            display_contacts(self.contacts)
+            print("[ Enter ZERO (0) to return to exit ]")
 
-            # Check if index to erase is within contacts range
-            if not (0 < erase_index <= len(contacts)):
+            # Prompt the user to input an contact entry to choose
+            erase_index = input_int("Enter entry number you want to delete:  ")
+
+            # Check if index to erase is within contacts range, exit when user enters nothing
+            if erase_index == 0:
+                return
+            if not (0 < erase_index <= len(self.contacts)):
                 print("Input number out of range")
+                continue
 
             # Confirm deletion
             confirm = input("Are you sure you want to delete this?(y/n): ").strip().lower()
