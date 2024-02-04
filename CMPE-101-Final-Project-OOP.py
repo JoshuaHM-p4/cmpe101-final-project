@@ -182,7 +182,7 @@ class AddressBook:
             erase_index = input_int("Enter entry number you want to delete: ")
 
             # Check if index to erase is within contacts range
-            if 0 < erase_index < len(self.contacts):
+            if not (0 < erase_index <= len(contacts)):
                 print("Input number out of range")
 
             # Confirm deletion
