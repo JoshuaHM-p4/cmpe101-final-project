@@ -31,7 +31,7 @@ def display_menu():
     width = 10
 
     # Print the header with the specified width
-    print("-" * width, "Address Book", "-" * width)
+    print("\n", "-" * width, "Address Book", "-" * width)
 
     # Display all the available options
     for i, option in enumerate(features, start=1):
@@ -113,9 +113,13 @@ class AddressBook:
 
         # Add the user entry into the contacts collection
         self.contacts.append(entries)
+        print("Successfully added new contact:")
+        display_contacts([entries])
 
     def edit_contact(self):
         """Prompt the user for the entry number he wants to edit."""
+
+        
 
         # Display the contacts
         display_contacts(self.contacts)
@@ -224,6 +228,7 @@ class AddressBook:
 
 
             print("\n<<< (P)revious | Page", page_number, "| (N)ext>>>")
+            print("\n[ Enter ENTRY NUMBER to show details ]")
             print("[ Press ENTER to return to exit ]")
 
             user_input = input().strip().lower()
@@ -232,6 +237,9 @@ class AddressBook:
                 page_number -= 1
             elif user_input == "n" and page_number * 10 < len(self.contacts):
                 page_number += 1
+            elif user_input.isnumeric():
+                contact = self.contacts[int(page_number)]
+                print(f"\nShowing details of:\n{contact["first_name"]} {contact["last_name"]}\nAddress: {contact["address"]}\n{contact["contact_no"]}\n")
             elif user_input == "":
                 break
 
@@ -259,13 +267,13 @@ class AddressBook:
             print(search_query)
             # Search through contacts
             for contact in self.contacts:
-                if option_prompt == 'A' and search_query in contact['first_name']:
+                if option_prompt == 'A' and search_query in contact['first_name']: # Search by first name
                     found_contacts.append(contact)
-                elif option_prompt == 'B' and search_query in contact['last_name']:
+                elif option_prompt == 'B' and search_query in contact['last_name']: # Search by last name
                     found_contacts.append(contact)
-                elif option_prompt == 'C' and search_query in contact["address"]:
+                elif option_prompt == 'C' and search_query in contact["address"]: # Search by address
                     found_contacts.append(contact)
-                elif option_prompt == 'D'and search_query in contact['contact_no']:
+                elif option_prompt == 'D'and search_query in contact['contact_no']: # Search by contact number
                     found_contacts.append(contact)
             print("")
             if not found_contacts:

@@ -39,7 +39,7 @@ def display_menu():
     width = 10
 
     # Print the header with the specified width
-    print("-" * width, "Address Book", "-" * width)
+    print("\n", "-" * width, "Address Book", "-" * width)
 
     # Display all the available options
     for i, option in enumerate(features, start=1):
@@ -92,6 +92,7 @@ def add_contact(contacts):
     if len(contacts) > 99:
         print("Limit for contacts in your address book has been reached!\n")
         return
+
     first_name = input("Enter your first name: ")
     last_name = input("Enter your last name: ")
     address = input("Enter your address: ")
@@ -107,12 +108,16 @@ def add_contact(contacts):
 
     # Add the user entry into the contacts collection
     contacts.append(entries)
-
-    # Return the contacts with the newly added person
-    return contacts
+    print("Successfully added new contact:")
+    display_contacts([entries])
 
 def edit_contact(contacts):
     """Prompt the user for the entry number he wants to edit."""
+
+    # Don't run when no contacts exists
+    if not contacts:
+        print("No existing entries")
+        return
 
     # Display the contactsB
     display_contacts(contacts)
@@ -139,19 +144,23 @@ def edit_contact(contacts):
             if edit_option == 1:
                 updated_entry = {"first_name": input("Enter new first name: ")}
                 entry_n.update(updated_entry)
-                print("Updated entry details:", entry_n)
+                print("Updated entry details:")
+                display_contacts([entry_n])
             elif edit_option == 2:
                 updated_entry = {"last_name": input("Enter new last name: ")}
                 entry_n.update(updated_entry)
-                print("Updated entry details:", entry_n)
+                print("Updated entry details:")
+                display_contacts([entry_n])
             elif edit_option == 3:
                 updated_entry = {"address": input("Enter new address: ")}
                 entry_n.update(updated_entry)
-                print("Updated entry details:", entry_n)
+                print("Updated entry details:")
+                display_contacts([entry_n])
             elif edit_option == 4: # Edit Contact
                 updated_entry = {"contact_no": input_int("Enter new contact number: ")}
                 entry_n.update(updated_entry)
-                print("Updated entry details:", entry_n)
+                print("Updated entry details:")
+                display_contacts([entry_n])
             elif edit_option == 5:# Exit
                 print("Exiting edit.")
             else: # For edge cases
@@ -179,7 +188,7 @@ def delete_contact(contacts):
         # Prompt the user to input an contact entry to choose
         erase_index = input_int("Enter entry number you want to delete:  ")
 
-        # Check if index to erase is within contacts range
+        # Check if index to erase is within contacts range, exit when user enters nothing
         if erase_index == 0:
             return
         if not 0 < erase_index <= len(contacts):
@@ -206,6 +215,11 @@ def view_contacts(contacts):
     '''Display all the entries.'''
     page_number = 1
 
+    # Don't run when no contacts exists
+    if not contacts:
+        print("No existing entries")
+        return
+
     while True:
         # Display contacts at specific page
         page_size = 10
@@ -219,8 +233,8 @@ def view_contacts(contacts):
         for i in range(end_index, start_index + page_size):
             print(f"[{i+1}] ...")
 
-
         print("\n<<< (P)revious | Page", page_number, "| (N)ext>>>")
+        print("\n[ Enter ENTRY NUMBER to show details ]")
         print("[ Press ENTER to return to exit ]")
 
         user_input = input().strip().lower()
@@ -229,11 +243,16 @@ def view_contacts(contacts):
             page_number -= 1
         elif user_input == "n" and page_number * 10 < len(contacts):
             page_number += 1
+        elif user_input.isnumeric():
+            if not (0 < int(user_input) <= len(contacts)):
+                print("Invalid entry...")
+                continue
+            contact = contacts[int(user_input)-1]
+            print(f"\nShowing details of:\n{contact["first_name"]} {contact["last_name"]}\nAddress: {contact["address"]}\nContact No: {contact["contact_no"]}\n")
         elif user_input == "":
             break
-
         else:
-            print("Invalid input. Please enter (P)revious, (N)ext, or press ENTER to return to main.")
+            print("Invalid input. Please enter (P)revious, (N)ext, entry number or press ENTER to return to main.")
 
 def search_contacts(contacts):
     '''Prompt  the  user  to  search  the  address  book
@@ -256,13 +275,13 @@ def search_contacts(contacts):
         print(search_query)
         # Search through contacts
         for contact in contacts:
-            if option_prompt == 'A' and search_query in contact['first_name']:
+            if option_prompt == 'A' and search_query in contact['first_name']:  # Search by first name
                 found_contacts.append(contact)
-            elif option_prompt == 'B' and search_query in contact['last_name']:
+            elif option_prompt == 'B' and search_query in contact['last_name']: # Search by last name
                 found_contacts.append(contact)
-            elif option_prompt == 'C' and search_query in contact["address"]:
+            elif option_prompt == 'C' and search_query in contact["address"]: # Search by address
                 found_contacts.append(contact)
-            elif option_prompt == 'D'and search_query in contact['contact_no']:
+            elif option_prompt == 'D'and search_query in contact['contact_no']: # Search by contact number
                 found_contacts.append(contact)
         print("")
         if not found_contacts:
